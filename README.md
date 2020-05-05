@@ -1,2 +1,2 @@
 # text_mining_SCD
-Unstructered Text Analysis Course
+Project submission for DS4 course at CEU
