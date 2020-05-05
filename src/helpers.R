@@ -35,6 +35,12 @@ readTransformCollectivist <- function(article_pages, author) {
   
   # write character vector containing one page per element into df
   text_df <- dplyr::data_frame(page = seq(1:length(page_vector)), text = page_vector)
+  # only keep digits if year is indicated
+  text_df <- text_df %>% 
+    filter(
+    !str_detect(word, "[a-z']+[:digit:]+" ), 
+    !str_detect(word, "[:digit:]+[a-z']+"),
+    str_detect(word, "[a-z']+|[:digit:]{4}"))
   return(text_df)
 }
 
@@ -53,4 +59,41 @@ fix_syllabification <- function(text) {
     counter <- counter + 1
   }
   return(text)
+}
+
+
+####
+## Analysis helpers
+####
+
+proportionDF <- function(df) {
+  df <- 
+    df %>%
+    unnest_tokens(word, text, to_lower = TRUE) %>% 
+    anti_join(stop_words) %>% 
+    count(word, sort = TRUE) %>% 
+    mutate(proportion = n / sum(n)) %>% 
+    arrange(-proportion) %>% 
+    mutate(rank = row_number())
+  
+  return(df)
+}
+
+####
+## Viz helpers
+## credits: https://github.com/dgrtwo/drlib/blob/master/R/reorder_within.R
+####
+reorder_within <- function(x, by, within, fun = mean, sep = "___", ...) {
+  new_x <- paste(x, within, sep = sep)
+  stats::reorder(new_x, by, FUN = fun)
+}
+
+scale_x_reordered <- function(..., sep = "___") {
+  reg <- paste0(sep, ".+$")
+  ggplot2::scale_x_discrete(labels = function(x) gsub(reg, "", x), ...)
+}
+
+scale_y_reordered <- function(..., sep = "___") {
+  reg <- paste0(sep, ".+$")
+  ggplot2::scale_y_discrete(labels = function(x) gsub(reg, "", x), ...)
 }
