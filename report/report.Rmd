@@ -1,0 +1,40 @@
+---
+title: "Your Document Title"
+author: "Document Author"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+
+## Analysis of free market article
+
+Hayek debate vs nature: 
+
+- in debate: 
+  - no mention of socialist/socialism
+  - really important in the other one
+  - competition (only here), quite surprising
+  - also solution
+  - question vs discussion
+  
+- planning: important in both
+  
+- Pierson: 
+  - quite different from Hayek
+  - no planning
+  - no discussion / question (with whom would be any?!)
+  - Influence of Böhm-Bawerk? capital, exchange, income?, labor -> different time, different perspective?
+
+- von Mises: 
+  - again no discussion, question
+  - exchange (with Pierson?)
+  - calculation, economic, production 
+    - calculation: name giver
+
+![](free_market_word_pooled_y.png)
+
+The previous was for me to see the key differences, but instead show this:
+
+![](free_market_word_free_y.png)

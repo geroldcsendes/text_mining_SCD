@@ -3,6 +3,7 @@ library(tesseract)
 library(magick)
 library(pdftools)
 library(stringr)
+library(tidytext)
 
 source("src/helpers.R")
 
