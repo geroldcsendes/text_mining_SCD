@@ -1,6 +1,6 @@
 ---
-title: "Your Document Title"
-author: "Document Author"
+title: "Text Analysis of the Socialist Calculation Debate"
+author: "Gerold Csendes"
 date: "`r Sys.Date()`"
 output:
   prettydoc::html_pretty:
@@ -38,3 +38,50 @@ Hayek debate vs nature:
 The previous was for me to see the key differences, but instead show this:
 
 ![](free_market_word_free_y.png)
+
+The below figure shows what words authors use in a similar frequency and what are different. 
+Texts that are closer to the abline don't suggest for big differences, for example system in Hayek: 35X, in Pierson: 31X. But discussion: Hayek 27X, Pierson: 2X
+
+- may be a meaningful comparison, since we might be able to track the arguments of the free-marketers in time 
+- Pierson: capital, exchange, international, demand, labour, communism (!)
+  - calculation already there! 
+  - doesn't mention: planning, central, rational, mises
+- Hayek: institutions (!), real with which word (biagram!), production
+  - doesn't mention: rate, services, foreign, bills
+
+
+
+vons Mises vs Hayek: 
+
+- Hayek: analysis, direction
+- calculation in both (calculation & calculations)
+- capitalism (!)
+- 1920 ?
+- doesn't mention: monetary, commonwealth, business, bank
+
+Mises: 
+
+- consumption
+- exchange, capital, material, labor (Pierson)
+- money (BB)
+- doesn't mention: planning, discussion, professor (?)
+
+
+![](free_market_scatter.png)
+
+
+Words to further analyze: 
+
+- competition
+- communism
+- socialism
+- socialist
+- capitalism
+- planning
+- war
+- rational
+- 1920
+- economic
+- calculation/-s
+- discussion
+- Austrian (the school)
