@@ -54,7 +54,7 @@ free_marketers %>% filter(rank < 10) %>%
   facet_grid(~author) +
   scale_y_continuous(labels = scales::percent) 
   #theme(axis.text=element_text(size=12))
-ggsave('report/free_market_word_pooled_y.png', width = 12, height = 6)
+# ggsave('report/free_market_word_pooled_y.png', width = 12, height = 6)
 
 
 free_marketers %>% filter(rank < 11) %>%  
@@ -63,7 +63,7 @@ free_marketers %>% filter(rank < 11) %>%
   scale_x_reordered() +
   coord_flip() +
   facet_wrap(~ author, scales = "free_y")
-ggsave('report/free_market_word_free_y.png', width = 12, height = 6)
+# ggsave('report/free_market_word_free_y.png', width = 12, height = 6)
 
 
 # create scatterplot
@@ -79,16 +79,28 @@ scatter_df <- free_marketers %>%
 # scatter_df$`Hayek: nature`[is.na(scatter_df$`Hayek: nature`)] <- 0.00001
 # scatter_df$proportion[is.na(scatter_df$proportion)] <- 0.00001
 
-p1 <- ggplot(scatter_df, aes(x = proportion, y = `Hayek: nature`, color = abs(`Hayek: nature` - proportion))) +
+scatter_p <- ggplot(scatter_df, aes(x = proportion, y = `Hayek: nature`, color = abs(`Hayek: nature` - proportion))) +
   geom_abline(color = "gray40", lty = 2) +
-  geom_jitter(alpha = 0.1, size = 2.5, width = 0.3, height = 0.3) +
-  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5, ) +
-  #geom_text_repel(aes(label = word)) +
+  geom_text(aes(label = word),position=position_jitter(width=0.2,height=0.2) , check_overlap = TRUE) +
   scale_x_log10(labels = scales::percent) +
   scale_y_log10(labels = scales::percent) +
   scale_color_gradient(limits = c(0, 0.001), low = "darkslategray4", high = "gray75") +
   facet_wrap(~author, ncol = 2) +
   theme(legend.position="none") +
   labs(y = "Hayek: nature", x = NULL)
+# ggsave('report/free_market_scatter.png', scatter_p, width = 12, height = 6)
 
-ggplotly(p1)
+
+# get an idea of differences in the plot what these mean in numbers
+viz_nums <- filter(free_marketers, word %in% c('system', 'social', 'society', 'economic', 'exchange', 'discussion', 
+                                               'planning', 'rate', 'lenin')) %>% 
+  arrange(word)
+
+
+# words that one of the two authors dont mention
+hayek_pierson <- no_mention_words(author = 'Pierson', df = scatter_df)
+hayek_mises <- no_mention_words(author = 'von Mises', df = scatter_df)
+
+
+free_marketers %>% 
+  filter(word == 'austrian')

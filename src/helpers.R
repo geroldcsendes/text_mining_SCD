@@ -44,6 +44,102 @@ readTransformCollectivist <- function(article_pages, author) {
   return(text_df)
 }
 
+readTransformNeurath <- function(article_pages, author, png_already = FALSE) {
+  socialist_lib <- 'docs/socialist/'
+  eng <- tesseract("eng") # initialize english enginge
+  book_name <- 'empiricism_and_sociology.pdf'
+  article_filename <-  paste0(socialist_lib, 'png/', author, '_')
+  
+  page_vector <- c()
+  for (page in article_pages) {
+    
+    filename_png <- paste0(article_filename, page, ".png")
+    if (png_already == FALSE) {
+      page_png <- pdf_convert(paste0(socialist_lib, book_name), pages = page, 
+                              dpi = 600, filenames = filename_png)
+    } else {
+      page_png <- filename_png
+    }
+    
+    page <- ocr(page_png, eng = eng)
+    # delete first line
+    page <- str_replace(page, "^(.*\n){1}", "")
+    #fix syllabicifcation
+    page <- fix_syllabification(page)
+    # remove newlines
+    page <- str_replace_all(page, "\\n", " ")
+    # everything to lower
+    page <- str_to_lower(page, locale = "en")
+    page_vector <- c(page_vector, page)
+  }
+  
+  # write character vector containing one page per element into df
+  text_df <- dplyr::data_frame(page = seq(1:length(page_vector)), text = page_vector)
+  
+  text_df <- text_df %>%
+    unnest_tokens(word, text, to_lower = TRUE) %>% 
+    anti_join(stop_words)  
+  # only keep digits if year is indicated
+  
+    text_df <- text_df %>%
+      filter(
+        !str_detect(word, "[a-z']+[:digit:]+" ),
+        !str_detect(word, "[:digit:]+[a-z']+"),
+        str_detect(word, "[a-z']+|[:digit:]{4}"))
+    
+  return(text_df)
+}
+
+readTransformEconomicReview <- function(article_pages, author, book_name, png_already = FALSE) {
+  socialist_lib <- 'docs/socialist/'
+  eng <- tesseract("eng") # initialize english enginge
+  
+  article_filename <-  paste0(socialist_lib, 'png/', author, '_')
+  
+  page_vector <- c()
+  for (page in article_pages) {
+    
+    filename_png <- paste0(article_filename, page, ".png")
+    if (png_already == FALSE) {
+      page_png <- pdf_convert(paste0(socialist_lib, book_name), pages = page, 
+                              dpi = 600, filenames = filename_png)
+    } else {
+      page_png <- filename_png
+    }
+    
+    # read in png to string
+    page <- ocr(page_png, eng = eng)
+    # delete first line
+    page <- str_replace(page, "^(.*\n){1}", "")
+    #fix syllabicifcation
+    page <- fix_syllabification(page)
+    # remove last two lines (indicating jstor source)
+    page <- str_replace(page, "\\n.+\\n.+\\n$", "")
+    # remove newlines
+    page <- str_replace_all(page, "\\n", " ")
+    # everything to lower
+    page <- str_to_lower(page, locale = "en")
+    page_vector <- c(page_vector, page)
+  }
+  
+  # write character vector containing one page per element into df
+  text_df <- dplyr::data_frame(page = seq(1:length(page_vector)), text = page_vector)
+  
+  text_df <- text_df %>%
+    unnest_tokens(word, text, to_lower = TRUE) %>% 
+    anti_join(stop_words)  
+  # only keep digits if year is indicated
+  
+  text_df <- text_df %>%
+    filter(
+      !str_detect(word, "[a-z']+[:digit:]+" ),
+      !str_detect(word, "[:digit:]+[a-z']+"),
+      str_detect(word, "[a-z']+|[:digit:]{4}"))
+  
+  return(text_df)
+}
+
+
 # concat syllabication 
 fix_syllabification <- function(text) {
   # use only first element in list since every page is a big chunk of string
@@ -96,4 +192,21 @@ scale_x_reordered <- function(..., sep = "___") {
 scale_y_reordered <- function(..., sep = "___") {
   reg <- paste0(sep, ".+$")
   ggplot2::scale_y_discrete(labels = function(x) gsub(reg, "", x), ...)
+}
+
+no_mention_words <- function(author_name, df) {
+  
+  res <- bind_rows(
+    df %>% 
+      mutate(na_sum = is.na(`Hayek: nature`) + is.na(proportion)) %>% 
+      filter(author == author_name, na_sum == 1) %>% 
+      arrange(-`Hayek: nature`) %>% 
+      head(10),
+    df %>% 
+      mutate(na_sum = is.na(`Hayek: nature`) + is.na(proportion)) %>% 
+      filter(author == author_name, na_sum == 1) %>% 
+      arrange(-`proportion`) %>% 
+      head(10))
+  
+  return(res)
 }
