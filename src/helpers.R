@@ -9,6 +9,7 @@ library(stringr)
 ####
 
 readTransformCollectivist <- function(article_pages, author) {
+  # TODO include png already, unest in the end
   free_lib <- 'docs/free_market/'
   eng <- tesseract("eng") # initialize english enginge
   book_name <- 'Collectivist_Economic_Planning2.pdf'
@@ -81,11 +82,11 @@ readTransformNeurath <- function(article_pages, author, png_already = FALSE) {
     anti_join(stop_words)  
   # only keep digits if year is indicated
   
-    text_df <- text_df %>%
-      filter(
-        !str_detect(word, "[a-z']+[:digit:]+" ),
-        !str_detect(word, "[:digit:]+[a-z']+"),
-        str_detect(word, "[a-z']+|[:digit:]{4}"))
+  text_df <- text_df %>%
+    filter(
+      !str_detect(word, "[a-z']+[:digit:]+" ),
+      !str_detect(word, "[:digit:]+[a-z']+"),
+      str_detect(word, "[a-z']+|[:digit:]{4}"))
     
   return(text_df)
 }
@@ -126,8 +127,8 @@ readTransformEconomicReview <- function(article_pages, author, book_name, png_al
   text_df <- dplyr::data_frame(page = seq(1:length(page_vector)), text = page_vector)
   
   text_df <- text_df %>%
-    unnest_tokens(word, text, to_lower = TRUE) %>% 
-    anti_join(stop_words)  
+    unnest_tokens(word, text, to_lower = TRUE) %>%
+    anti_join(stop_words)
   # only keep digits if year is indicated
   
   text_df <- text_df %>%
@@ -175,6 +176,36 @@ proportionDF <- function(df) {
   return(df)
 }
 
+# different because importer already unnests pages into tables by page
+# TODO fix this: fix proportionDF so it works same as proportionDF_socialist
+proportionDF_socialist <- function(df) {
+  df <- 
+    df %>%
+    count(word, sort = TRUE) %>% 
+    mutate(proportion = n / sum(n)) %>% 
+    arrange(-proportion) %>% 
+    mutate(rank = row_number())
+  
+  return(df)
+}
+
+no_mention_words <- function(author_name, df) {
+  # TODO Hayek harcdoded
+  res <- bind_rows(
+    df %>% 
+      mutate(na_sum = is.na(`Hayek: debate`) + is.na(proportion)) %>% 
+      filter(author == author_name, na_sum == 1) %>% 
+      arrange(-`Hayek: debate`) %>% 
+      head(10),
+    df %>% 
+      mutate(na_sum = is.na(`Hayek: debate`) + is.na(proportion)) %>% 
+      filter(author == author_name, na_sum == 1) %>% 
+      arrange(-`proportion`) %>% 
+      head(10))
+  
+  return(res)
+}
+
 ####
 ## Viz helpers
 ## credits: https://github.com/dgrtwo/drlib/blob/master/R/reorder_within.R
@@ -194,19 +225,30 @@ scale_y_reordered <- function(..., sep = "___") {
   ggplot2::scale_y_discrete(labels = function(x) gsub(reg, "", x), ...)
 }
 
-no_mention_words <- function(author_name, df) {
+# flipped bar chart with pooled axis on most commom words
+top10_pooled_plot <- function(df) {
   
-  res <- bind_rows(
-    df %>% 
-      mutate(na_sum = is.na(`Hayek: nature`) + is.na(proportion)) %>% 
-      filter(author == author_name, na_sum == 1) %>% 
-      arrange(-`Hayek: nature`) %>% 
-      head(10),
-    df %>% 
-      mutate(na_sum = is.na(`Hayek: nature`) + is.na(proportion)) %>% 
-      filter(author == author_name, na_sum == 1) %>% 
-      arrange(-`proportion`) %>% 
-      head(10))
+  p1 <- df %>% filter(rank < 11) %>%  
+          ggplot(aes(x = reorder(word, - proportion), y = proportion)) +
+          geom_bar(stat = 'identity') +
+          coord_flip() +
+          facet_grid(~author) +
+          scale_y_continuous(labels = scales::percent) 
   
-  return(res)
+  return(p1)
 }
+
+top10_plot <- function(df) {
+  
+  p1 <- df %>% filter(rank < 11) %>%  
+          ggplot(aes(reorder_within(word, proportion, author), proportion)) +
+          geom_col() +
+          scale_x_reordered() +
+          coord_flip() +
+          facet_wrap(~ author, scales = "free_y")
+  
+  return(p1)
+  }
+
+
+
