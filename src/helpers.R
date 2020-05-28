@@ -37,11 +37,12 @@ readTransformCollectivist <- function(article_pages, author) {
   # write character vector containing one page per element into df
   text_df <- dplyr::data_frame(page = seq(1:length(page_vector)), text = page_vector)
   # only keep digits if year is indicated
-  text_df <- text_df %>% 
-    filter(
-    !str_detect(word, "[a-z']+[:digit:]+" ), 
-    !str_detect(word, "[:digit:]+[a-z']+"),
-    str_detect(word, "[a-z']+|[:digit:]{4}"))
+  # text_df <- text_df %>% 
+  #   filter(
+  #   !str_detect(word, "[a-z']+[:digit:]+" ), 
+  #   !str_detect(word, "[:digit:]+[a-z']+"),
+  #   str_detect(word, "[a-z']+|[:digit:]{4}"))
+  
   return(text_df)
 }
 
@@ -77,17 +78,17 @@ readTransformNeurath <- function(article_pages, author, png_already = FALSE) {
   # write character vector containing one page per element into df
   text_df <- dplyr::data_frame(page = seq(1:length(page_vector)), text = page_vector)
   
-  text_df <- text_df %>%
-    unnest_tokens(word, text, to_lower = TRUE) %>% 
-    anti_join(stop_words)  
+  # text_df <- text_df %>%
+  #   unnest_tokens(word, text, to_lower = TRUE) %>% 
+  #   anti_join(stop_words)  
   # only keep digits if year is indicated
   
-  text_df <- text_df %>%
-    filter(
-      !str_detect(word, "[a-z']+[:digit:]+" ),
-      !str_detect(word, "[:digit:]+[a-z']+"),
-      str_detect(word, "[a-z']+|[:digit:]{4}"))
-    
+  # text_df <- text_df %>%
+  #   filter(
+  #     !str_detect(text, "[a-z']+[:digit:]+" ),
+  #     !str_detect(text, "[:digit:]+[a-z']+"),
+  #     str_detect(text, "[a-z']+|[:digit:]{4}"))
+
   return(text_df)
 }
 
@@ -126,16 +127,16 @@ readTransformEconomicReview <- function(article_pages, author, book_name, png_al
   # write character vector containing one page per element into df
   text_df <- dplyr::data_frame(page = seq(1:length(page_vector)), text = page_vector)
   
-  text_df <- text_df %>%
-    unnest_tokens(word, text, to_lower = TRUE) %>%
-    anti_join(stop_words)
+  # text_df <- text_df %>%
+  #   unnest_tokens(word, text, to_lower = TRUE) %>%
+  #   anti_join(stop_words)
   # only keep digits if year is indicated
   
-  text_df <- text_df %>%
-    filter(
-      !str_detect(word, "[a-z']+[:digit:]+" ),
-      !str_detect(word, "[:digit:]+[a-z']+"),
-      str_detect(word, "[a-z']+|[:digit:]{4}"))
+  # text_df <- text_df %>%
+  #   filter(
+  #     !str_detect(text, "[a-z']+[:digit:]+" ),
+  #     !str_detect(text, "[:digit:]+[a-z']+"),
+  #     str_detect(text, "[a-z']+|[:digit:]{4}"))
   
   return(text_df)
 }
@@ -164,15 +165,16 @@ fix_syllabification <- function(text) {
 ####
 
 proportionDF <- function(df) {
-  df <- 
-    df %>%
-    unnest_tokens(word, text, to_lower = TRUE) %>% 
-    anti_join(stop_words) %>% 
-    count(word, sort = TRUE) %>% 
-    mutate(proportion = n / sum(n)) %>% 
-    arrange(-proportion) %>% 
-    mutate(rank = row_number())
   
+    df <- 
+      df %>%
+      unnest_tokens(word, text, to_lower = TRUE) %>% 
+      anti_join(stop_words) %>% 
+      count(word, sort = TRUE) %>% 
+      mutate(proportion = n / sum(n)) %>% 
+      arrange(-proportion) %>% 
+      mutate(rank = row_number())
+
   return(df)
 }
 
@@ -205,6 +207,85 @@ no_mention_words <- function(author_name, df) {
   
   return(res)
 }
+
+# sentiment help func
+# find words up to 20 words before/after trigger word
+sliding_range <- function(num) {
+  res <- (num-20) : (num + 20)
+  res <- res[!res == num] # remove trigger word
+  res <- res[res > 0] # remove negative indexes
+  return(res)
+}
+
+# sentiment help func
+# find how many word range for each trigger 
+id_length <- function(idx_vec) {
+  return(length(idx_vec))
+}
+
+# sentiment help func
+# generate id for sentiment_df 
+gen_id <- function(id_length_vec) {
+  
+  id_res <- c()
+  counter <- 1
+  
+  for (element in id_length_vec) {
+    id_res <- c(id_res, rep(counter, element))
+    
+    counter <- counter + 1
+  }
+  
+  return(id_res)
+}
+
+# return dataframe ready to be sentiment analysed with sentimentr
+sentiment_df  <- function(df, author) {
+  
+  # define which words to track
+  trigger_words <- c("social", "socialist", "socialism")
+  
+  # get words within range of 
+  # unnest tokens but leave stopwords
+  df <- df %>%
+    unnest_tokens(word, text, to_lower = TRUE)
+  
+  # find trigger words
+  social_rows <- df %>%
+    mutate(row_idx = row_number()) %>% 
+    filter(word %in% trigger_words) 
+  
+  social_rows <- social_rows$row_idx
+  
+  
+  # get indexes in unnested df
+  sliding_idx <- lapply(social_rows, sliding_range)
+  
+  # find how many triggers found
+  trigger_cnt <- length(sliding_idx)
+  
+  # this is for when not 40 words returned for a trigger word
+  trigger_range <- sapply(sliding_idx, id_length)
+  sliding_id_vec <- gen_id(trigger_range)
+  
+  # unlist to get indices
+  sliding_idx <- unlist(sliding_idx)
+  
+  df_sliding <- df[sliding_idx, ]
+  df_sliding$trigger_id <- sliding_id_vec
+  
+  # wide format
+  df_sliding <- df_sliding %>% 
+    group_by(trigger_id) %>% 
+    summarize(text = str_c(word, collapse = " ")) %>%
+    ungroup()
+  
+  df_sliding$author <- c(author)
+  
+  return(df_sliding)
+}
+
+
 
 ####
 ## Viz helpers
@@ -245,10 +326,20 @@ top10_plot <- function(df) {
           geom_col() +
           scale_x_reordered() +
           coord_flip() +
-          facet_wrap(~ author, scales = "free_y")
+          facet_wrap(~ author, scales = "free_y") +
+          labs(x = "word")
   
   return(p1)
   }
 
 
-
+# look for authors name in texts
+cross_refer <- function(df, author) {
+  authors <- c("pierson", "mises", "hayek", "neurath", "lange", "lerner", "dickinson")
+  res <- df %>% 
+    filter(word %in% authors) %>% 
+    select(word, proportion)
+  res$author <- c(author)
+  
+  return(res)
+}
