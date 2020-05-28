@@ -441,4 +441,13 @@ all_words %>%
 hayek_austria <- hayek_nature %>% 
   filter(str_detect(string = text, pattern = "austria|austrian"))
 
+lange_austria <- lange %>% 
+  filter(str_detect(string = text, pattern = "austria|austrian"))
+
+mises_austria <- mises %>% 
+  filter(str_detect(string = text, pattern = "austria|austrian"))
+
+
 str_view_all(hayek_austria$text, pattern="austria|austrian")
+str_view_all(lange_austria$text, pattern="austria|austrian")
+str_view_all(mises_austria$text, pattern="austria|austrian")
