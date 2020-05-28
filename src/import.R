@@ -66,5 +66,3 @@ dickinson_bookname <- 'dickinson_Price_Formation_in_a_Socialist_Community.pdf'
 dickinson <- readTransformEconomicReview(article_pages = dickinson_pages, author = 'dickinson', 
                                          book_name = dickinson_bookname, png_already = TRUE)
 saveRDS(dickinson, 'data/dickinson.RDS')
-
-                                         
