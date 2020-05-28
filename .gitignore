@@ -51,3 +51,6 @@ packrat/lib*/
 # to jpeg and png covnerted pdfs
 *.png
 *.jpeg
+
+# network vis
+report/
