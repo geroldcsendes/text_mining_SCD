@@ -9,64 +9,37 @@ output:
 ---
 
 ## Historical background
+### TL;DR
 
 In the history of economics there was a great scientific debate called the __Socialist Calculation Debate__. It is quite hard to give a concise overview, as economist historians do not agree on many aspects of the debate like when it exactly started or ended and mostly who won it. Marx came up with the idea of socialism in the 1840s which challenged the foundations of the economics. The mainstream economists (it is actually quite sloppy to say maisntream as economics was rather heterodox that time but let's keep things easy) apart from a few exceptions (like the Austrian Böhm-Bawerk) didn't seem to take notice of Marx's (and his followers) work. It was only after quite later beginning in the early 1900s that "mainstream" economists started debating the socialsit view on the economy. 
 
-From thist time on, a real scientific debate took place where famous economists took side and tried to make a point. I chose some famous papers and authors in different time of the debate which is shown below. Pierson was one of the earlist critic of socialism in the 1900s who mostly reflected on the early ideas of socialism like Marxs. Then Otto Neurath, rather a sociologist than economist came into a picture and in serious of papers in the 1910s supported the idea of socialism. That time there was already precedence for socialism which he calls war economy and refers to Germany at the time, and also socialism took place in Russia. Von Mises challenged Nerath's views in his 1920 article which is coined as annus mirabilis as some economic historians think that this paper initiated a bigger-scale and rather scientific debate. Also, von Mises was the namegiver of the Socialist Calculation Debate.  
+From thist time on, a real scientific debate took place where famous economists took side and tried to make a point. I chose some famous papers and authors in different time of the debate which is shown below. Pierson was one of the earlist critic of socialism in the 1900s who mostly reflected on the early ideas of socialism like Marxs. Then Otto Neurath, rather a sociologist than economist came into a picture and in serious of papers in the 1910s supported the idea of socialism. That time there was already precedence for socialism which he calls war economy and refers to Germany at the time, and also socialism took place in Russia. Von Mises challenged Neurath's views in his 1920 article which is coined as annus mirabilis as some economic historians think that this paper initiated a bigger-scale and rather scientific debate. Also, von Mises was the namegiver of the Socialist Calculation Debate.  
 
-From this on, many papers from both sides were published but I choose one particular set of papers. These were about market socialism, an economic system that intends to operate socialism with some free market concepts. We can see a shift in change in the debate because before it was rather about the theoretical impossibility of socialism but from this point on, it was rather about the practical impossibility. Friedrik Hayek (a later Nobel scholar) took up against market socialism while the Lange-Lerner-Dickinson trio were on the pro side. What is also interesting is that the trio were acknowledged economistst of the time and still some great economis concepts are named after them. These people were also trained in maths and a more scientific debate is to be seen in their debate. 
+From this on, many papers from both sides were published but I choose one particular set of papers. These were about market socialism, an economic system that intends to operate socialism with some free market concepts. We can see a shift in change in the debate because before it was rather about the theoretical impossibility of socialism but from this point on, it was rather about the practical impossibility. Friedrik Hayek (a later Nobel scholar) took up against market socialism while the Lange-Lerner-Dickinson trio were on the pro side. What is also interesting is that the trio were acknowledged economistst of the time and still some great economic concepts are named after them. These people were also trained in maths and a more scientific debate is to be seen in their debate. 
 
 Long story short, this debate is quite complex and I don't intend to crack it with my (limited) text mining skills. Instead I want to test some hypothesis about the debate. These include:  
 
 1. The shift of the debate: I want to test, whether I can show with text mining methods that in fact there was a shift in the debate 
-2. Socialist writers are more sentiemntal: I have a personal observation that socialsts really emphasize that socialism is for the people's sake and many times talk about that people will be happy in that system. 
+2. Socialist writers are more sentimental: I have a personal observation that socialists really emphasize that socialism is for the people's sake and many times talk about that people will be happy in that system. 
+3. Economist historians associate the critic of socilism with the Austrian school (a school of economic thought). Mises and Hayek were both member of the school. I have read some papers from the Austrians but I cannot recall that I found any time the term __Austrian__. It might have been that this school was rather informal and historians only later coined like-minded people as Austrians.
+
+Below I provide a timeline of the papers I use.
 
 ![](timeline.png)
 
 
 ## Analysis of mainstream articles
 
-Firstly, I think it is worth comparing the articles of one's side. Let's start with the __mainstream__, so those opposing socialism. Before jumping, here is a quick overview of the articles I selected: all of the articles were published together in Collectivist Economic Planning edited by F. A. Hayek. This is a book which gives an overview of the debate from the mainstream side.   
+Firstly, I think it is worth comparing the articles of one's side. Let's start with the __mainstream__, so those opposing socialism. Before jumping in, here is a quick overview of the articles I selected: all of the articles were published together in Collectivist Economic Planning edited by F. A. Hayek. This is a book which gives an overview of the debate from the mainstream side. I picked these papers from the book:  
 
 - The Problem of Value in The Socialist Community by N. G. Pierson (1902) 
 - Economic Calculation in the Socialist Commonwealth by L. von Mises (1920)
 - The Nature and History of the Problem by F. A. Hayek (1935): introduction essay by the editor which gives rather a historical summary of the debate
 - The Present State of the Debate by F. A. Hayek (1935): concluding essay by the editor that rather deals with the present and future state of the debate  
 
-I think it is worth taking a quick look at the 10 most common words in each paper. It is indeed interesting to see that there are quite some differences. Pierson and von Mises have a lot of overlap, words like exchange, labours and socialist/socialism are to be found in the top 10 words in each paper. The top words in Pierson reflect a previous great economist, Böhm-Bawerk's effect who controbuted a lot to monetary theory. The income, trade, exchange and especially **capital** are quite likely to refer to monetarism. Von Mises' (whose paper was written appx. 20 years later) paper seemingly also touched upon monetarism but at the same time, it seems that he also deals with the real economy. This may be argued by his fequent usage of the word **production**. 
+I think it is worth taking a quick look at the 10 most common words in each paper. It is indeed interesting to see that there are quite some differences. Pierson and von Mises have a lot of overlap, words like exchange, labours and socialist/socialism are to be found in the top 10 words in each paper. The top words in Pierson reflect a previous great economist, Böhm-Bawerk's effect who contributed a lot to monetary theory. The income, trade, exchange and especially **capital** are quite likely to refer to monetarism. Von Mises' (whose paper was written appx. 20 years later) paper seemingly also touched upon monetarism but at the same time, it seems that he also deals with the real economy. This may be argued by his fequent usage of the word **production**. 
 
-Hayek uses qute different wording in both of his papers from the previous two. His __Nature and History of the Problem__ is ought to describe the historical debate and it seems he uses a different jargon, he brings in planning, central (central planning) and also resources, they dealt with how to efficiently utilize resources. Note that in  __Present State of the Debate__ the word competition appers, a later foundation-stone of economics. Also note the use of question, that may refer to the shift in the debate that the debate topic change. 
-
-**TODO**
-
-- check central planning in von Mises, Pierson
-- check n-gram for socialist calcluation in von Mises
-- hayek debate: question
-
-
-Hayek debate vs nature: 
-
-- in debate: 
-  - no mention of socialist/socialism
-  - really important in the other one
-  - competition (only here), quite surprising
-  - also solution
-  - question vs discussion
-  
-- planning: important in both
-  
-- Pierson: 
-  - quite different from Hayek
-  - no planning
-  - no discussion / question (with whom would be any?!)
-  - Influence of Böhm-Bawerk? capital, exchange, income?, labor -> different time, different perspective?
-
-- von Mises: 
-  - again no discussion, question
-  - exchange (with Pierson?)
-  - calculation, economic, production 
-    - calculation: name giver
-
+Hayek uses quite different wording in both of his papers from the previous two. His __Nature and History of the Problem__ is ought to describe the historical debate and it seems he uses a different jargon, he brings in planning, central (central planning) and also resources, they dealt with how to efficiently utilize resources. Note that in  __Present State of the Debate__ the word competition appers, a later foundation-stone of economics. Also note the use of question, that may refer to the shift in the debate that the debate topic change. 
 
 
 ![](free_market_word_free_y.png)
@@ -74,80 +47,122 @@ Hayek debate vs nature:
 The below figure shows what words authors use in a similar frequency and what are different. 
 Texts that are closer to the abline don't suggest for big differences, for example system in Hayek: 35X, in Pierson: 31X. But discussion: Hayek 27X, Pierson: 2X
 
-- may be a meaningful comparison, since we might be able to track the arguments of the free-marketers in time 
-- Pierson: capital, exchange, international, demand, labour, communism (!)
-  - calculation already there! 
-  - doesn't mention: planning, central, rational, mises
-- Hayek: institutions (!), real with which word (biagram!), production
-  - doesn't mention: rate, services, foreign, bills
+The next figure further attempts to compare the wording of mainstream economists. This does not only show how frequent words were used but also facilitates the comparison of how differently words were used. I deliberately picked Hayek's forward-looking paper because this way, we can see how the word usage differs in time. 
 
+When comapring Hayek and Pierson what really catches the eye is that real-economy related words like industry, real, output are used by Hayek and rather monetary-related terms such as paid, money and capital are used in Pierson's paper. Also, we can see that competition was a lot more frequently used in Hayek. 
 
-
-vons Mises vs Hayek: 
-
-- Hayek: analysis, direction
-- calculation in both (calculation & calculations)
-- capitalism (!)
-- 1920 ?
-- doesn't mention: monetary, commonwealth, business, bank
-
-Mises: 
-
-- consumption
-- exchange, capital, material, labor (Pierson)
-- money (BB)
-- doesn't mention: planning, discussion, professor (?)
-
-The next figure further attempts to compare the wording of mainstream economists. This does not only show how frequens words were used but also facilitates the comparison of how differently words were used. I deliberately picked Hayek's forward-looking paper because this way, we can see how the word usage differs in time. 
-
-When comapring Hayek and Pierson what really catches the eye is that real-economy related words like industry, real, output are used by Hayek and rather monetary-related terms such as paid, money and capital are used in Pierson's paper. Also, we can see that competition was a lot mor frequently used in Hayek. 
-
-In a later, Mises', phase we can see the monetary heritage still: monetary, bank etc.. but it seems Mises also touched upon somewhat on real economy since we see that realtive high frequency useage of production and Hayek's real terms are not as far away from the line as it was in Pierson's case. 
+In a later, Mises', phase we can see the monetary heritage still: monetary, bank etc.. but it seems Mises also touched upon somewhat on real economy since we see that relative high frequency useage of production and Hayek's real terms are not as far away from the line as it was in Pierson's case. 
 
 ![](free_market_scatter.png)
 
 
-It is further worth quickly check the words which were used by Hayek but not by Pierson or Mises, since these words are not plotted in the above figure. What we can see in the below chart is that words Hayek use but Pierson and Mises don't kind of overlap. By the way, here I only show the words the top 10 words only. Central planning is basically the way economics is done in socialism. This conept rather came later into picture, when economists started to deal with the central planning problem, meaning approximately who a god-like person can design an economy to be functional just as well as a free market one. 
+It is further worth quickly checking the words which were used by Hayek but not by Pierson or Mises, since these words are not plotted in the above figure. What we can see in the below chart is that words Hayek use but Pierson and Mises don't, kind of overlap. By the way, here I only show the words the top 10 words only. Central planning is basically the way economics is done in socialism. This conept rather came later into picture, when economists started to deal with the central planning problem, meaning roughly a god-like person who can design an economy to be functional just as well as a free market one. 
 
 ![](nomention_free_market.png)
 
+## Analysis of socialists' articles
 
-Words to further analyze: 
+I picked these articles from the socialist side:  
 
-- competition
-- communism
-- socialism
-- socialist
-- capitalism
-- planning
-- war
-- rational
-- 1920
-- economic
-- calculation/-s
-- discussion
-- Austrian (the school)
-- Market socialism
+- Through War Economy to Economy (series of articles) by Otto Neurath (1919-19) 
+- On the Economic Theory of Socialism Part 1 & 2 by L. Oskar Lange (1936-37)
+- Economic Theory and Socialist Economy by A. P. Lerner (1934): 
+- Price Formation in a Socialist Community by H. D. Dickinson (1933): 
+
+In the below chart, we can see that the top 10 words Neurath used really differs from the rest. Workers, life, socialization and time suggest that he rather dealt with the sociology of socialism rather than with the economics of it. After all, it makes sense since he was more of a socialogist (but he also dealt with economics). About the three later economists, I don't see big differences in wording. What is interesting, is that they cite their fellow socialists, the term "Dobb" and "Dickinson" refer to this. We didn't see that in the mainstream.
+
+![](socialist_word_free_y.png)
+
+By looking at the scatterplots again, we can conclude that the words having higher relative frequencies don't seem to suggest for different topics when comparing Lange and Lerner. However, it is not the case when we compare Lange and Neurath. When taking a closer look at the bottom right corner, we don't really see economics terms. I suspect that living, life, workers are used to describe the life of the workers and past/future are used to explain how miserable the life of the workers was and how it will change in a socialism.
+
+![](socialist_scatter.png)
+
+## Tf-Idf
+
+If we talk about a debate, then we expect the scientists talking about the same topic. Let's do a quick tf-idf analysis to see whether the important words differ greatly in meaning.
+
+The below chart depicts the tf-idf of the three early scientists, Pierson, Mises and Neurath. Again, Pierson wrote in 1902 and historians date the debate from Mises who reflected on Neurath's socialist idea. It seems like that Pierson and Mises used product examples like coffee, grain and cigerattes. Probably, to show the manufacturing process and how prices are needed. Not so surprisingly, Mises uses words like unit, valuation and monetary which all indicate his argument against socialism: that without price, an economy cannot be as effective as with prices. 
+Neurath's highly scored words can be also very well interpreted. War is a very important one, that was probably used to describe his way of transition from a free market setup to socalism. He argued that through war economy it is the easiest to make the transition (later others argued for market socialism). The words utopias, world, shaping and peace are quite interesting to me. I think these were used to express how people's life would change (and be better off) in socialism. As I earlier mentioned, I felt like that socialist writers dealt a great deal with people's happiness and I sort of suspect that these words indicate this. However, I am not saying that this is 100% sure. 
+
+![](early_tf_idf.png)
+
+For the later phase, I pooled the papers of both sides. Since they were written within a short period of time (couple of years), I guess this is okay to do. It is not easy to make sense out of the mainstream, as proposed, proposals, phenomena and moment are kind of vague words and their meanings are hard to guess without context. The use of sciences, however, is really interesting. Quite frankly, I can only guess what it means.  
+
+Board is really important for socialists which must describe the Economic Planning Board, a board that regulates the prices in socialism. They had a crucial role, since they were ought to find the exact same prices that would arise in a free market design. Allocation, preference and accumulation are all economic terms which may be used when arguing for socalism. 
 
 
-## Analysis of socialists text
+![](late_tf_idf.png)
 
+## Senitmental writing
 
-## TF-idf
+To check whether socialists are more sentimental in writing, I am going to use a 20 word sliding window on these triggering words: **social, socialist, socialism**.  To assess the sentiment score of this 40 word range around the trigger word, I use `sentimentr` which tries to take into account valence shifters. It combines the sentiment scores of bind, afinn, nrc, stanford and syuzhet, thus the scale is not really easy to comprehend. To provide some context, let's look at some example sentences and their sentiment scores.
 
+```{r}
+library(sentimentr)
+# positive statement
+sentiment("Socialism is the most beautiful thing in the world")
+# very positive statement
+sentiment("Socialism is the most beautiful thing in the world, people will be happy and rich")
+# negative statement
+sentiment("Socialism is plague to all of us")
+# very negative statement
+sentiment("Socialism is plague to all of us, people will die and starve to death")
 
-## N gram
+```
 
-alternative
-discussion
-professor
-dr
-central 
-planning
-competetive
+After this couple of examples, we can have a rough guess about the mechanics of this sentiment analyser. Since the sentiment score is additive, I reckon that a score in a 40 word range above 0.5 can be considered as really positive and below -0.5 as really negative. Let's just keep this as a rule of thumb. 
 
+After running the scorer on the articles, we get the following sentiments for each author in the below chart. Neurath score highest, at 0.18 while Hayek's debate along Pierson scored lowest at 0.045 and 0.06, respecitvely. All the remaining scored around 0.07. 
+
+![](sentiment.png)
+
+It is quite likely that there is no substantial difference in sentiment when comparing the authors by using my rule of thumb.  It might still make sense to compare Neurath to Hayek's debate article. Again, just to to put this into context, I provide an example each for these two authors sentences that scored at around their respective avarage.
+
+Neurath average sentiment: 
+
+> "... aged the fixing of war rations has shown us that this sort of thing is not too difficult from a **social** engineering point of view and does not lead as easily to serious differences as do negotiations for monetary wages care ..." 
+
+Hayek debate average sentiment: 
+
+> "... are not intellectually equipped to improve the working of our economic system by planning or to solve the problem of **social** production in any other way without very considerably impairing productivity what is lacking is not experience but intellectual mastery of ..."
+
+Well, I am not saying that Neurath's 41 words is a lot more cheerful but I can sense some difference in tone. Of course, this is only one sterile example but I still think it was worth taking this interesting detour.
 
 ## Cross references
 
+As a fun part of this assignment, let's take a look at the network of references. What we can take away from the below visualization is that Neurath was sort of forgotten by the socialists while Mises and Hayek from the mainstream both referred to him. I tried to look for an explanation and I found some historians who claim that new wave a of socialists wanted to leave behind the __old__ debate and wanted to concentrate on the new one with its focus in market socialism. 
 
+It is also quite interesting that Hayek was only mentioned by the socialist Lange while Mises got three references from the socialists though at that time it was Hayek who was on the forefront of the debate on the mainstream side. To be honest, I was expecting a bit more cross references, since these papers are 20+ pages long. 
 
+```{r, results='asis'}
+library(htmltools)
+network_vis <-cat(htmltools::includeHTML("cross_network.html"))
+```
+ 
+
+## Austrian school
+
+Lastly, let's inspect the "role" of the Austrian school in the debate. To be more precise, let's check whether the mainstream (Hayek and Mises) identified themselves as member of the Austrian school or the socialist writers called them this way. It turns out, quite surprisingly, that the Austria/Austrian word only appear 8 times out of which only once really meant a school of economic thought. And that one was a socialist, Oskar Lange who wrote this:
+
+> "... but it is most surprising to find this institutionalist view supported by a prominent member of the austrian school... "
+
+So, the name of the school was really in use in that time but I just find this incomprehensible why this was only mentioned once in about 140 pages.
+
+## Summary
+
+Let's summarise our findings in the light of hypothesis, that are:
+
+1. there was a shift in the debate 
+2. socialists are more sentimental 
+3. Austrian school members did not associate themselvew as Austrians (at least they did not refer to their school in their writings)
+
+Before doing so, I just want to emphasize that my judgements are not based on anything like a statistical significance test. It merely attempts to connect the dots, combining the information of the summary statistics and data visualizations.
+
+If we break up the debate the way I did, we can see from the plot that there is actually great difference in word usage in time. In the earlier phase, the mainstream rather dealt with the monetary view while the socialist Neurath with the sociological aspects of socialism and his proposed way of transition to socialism through war economy. When looking at the more modern authors,  I would proprose that they  discussed a different topic from the early debaters. Nonetheless, I cannot tell whether Hayek and the rest modern socialists spoke about the same thing. Topic modelling, maybe with LDA might help us find this out. 
+
+I think I couldn't prove that socialists write in a more sentimental way. I concluded that maybe I saw a difference between Neurath and Hayek's articles but the sentiment scores showed that the Dickinson-Lange-Lerner trio was not more sentimental compared to Hayek or Mises when using this sliding windows technique. 
+
+Finally, there was one sole remark of the Austrian school. It is especially interesting since we didn't see much reference to Hayek either from Lange-Lerned-Dickinson so one might be interested in how they argued against Hayek, their greatest opponent of the time. 
+
+### Technicalities
+All my code is available on my [github](https://github.com/geroldcsendes/text_mining_SCD)
